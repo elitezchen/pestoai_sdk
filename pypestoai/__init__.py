@@ -1,2 +1,2 @@
 from .api import PestoAPI
-from .version import __version__
+from ._version import __version__
