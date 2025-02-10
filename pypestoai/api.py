@@ -16,11 +16,11 @@ class PestoAPI:
         self.extra_params = None
         if api_key:
             self.api_base_url = self.__PRO_API_URL_BASE
-            self.extra_params = {"x_cg_pro_api_key": api_key}
+            self.extra_params = {"x-demo-api-key": api_key}
         else:
             self.api_base_url = self.__API_URL_BASE
             if demo_api_key:
-                self.extra_params = {"x_cg_demo_api_key": demo_api_key}
+                self.extra_params = {"x-demo-api-key": demo_api_key}
 
         self.request_timeout = 120
         self.session = requests.Session()
@@ -30,11 +30,12 @@ class PestoAPI:
         self.session.mount("https://", HTTPAdapter(max_retries=retries))
 
     def __request(self, url, params):
-        if self.extra_params is not None:
-            params.update(self.extra_params)
+        headers = {}
+        if self.extra_params:
+            headers.update(self.extra_params)
         try:
             response = self.session.get(
-                url, params=params, timeout=self.request_timeout
+                url, params=params, headers=headers, timeout=self.request_timeout
             )
         except requests.exceptions.RequestException:
             raise
