@@ -25,7 +25,7 @@ python3 setup.py install
 
 ### Usage
 
-For Demo **Demo API**:
+For **Demo API**:
 
 - 🔑 with a <ins>demo api key</ins>:
   ```python
@@ -33,7 +33,7 @@ For Demo **Demo API**:
   pto = PestoAPI(demo_api_key='YOUR_DEMO_API_KEY')
   ```
 
-For Production **Production API**:
+For **Production API**:
 
 - 🔑 with a <ins>pro api key</ins>:
   ```python
