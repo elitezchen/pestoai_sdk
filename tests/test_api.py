@@ -21,7 +21,7 @@ class TestWrapper:
         """
         Test that an HTTPError is raised when the ping endpoint returns a 404 status.
         """
-        responses.add(responses.GET, "http://localhost:8000/ping", status=404)
+        responses.add(responses.GET, "https://api.pestoai.fun/v2/ping", status=404)
         with pytest.raises(HTTPError) as HE:
             PestoAPI().ping()
 
@@ -32,7 +32,7 @@ class TestWrapper:
         """
         ping_json = {"reaction": "It works!"}
         responses.add(
-            responses.GET, "http://localhost:8000/ping", json=ping_json, status=200
+            responses.GET, "https://api.pestoai.fun/v2/ping", json=ping_json, status=200
         )
         response = PestoAPI().ping()
         assert response == ping_json
@@ -42,7 +42,7 @@ class TestWrapper:
         coins_json_sample = {"bitcoin": {"usd": 7984.89}}
         responses.add(
             responses.GET,
-            "http://localhost:8000/simple/price?ids=bitcoin&vs_currencies=usd",
+            "https://api.pestoai.fun/v2/simple/price?ids=bitcoin&vs_currencies=usd",
             json=coins_json_sample,
             status=200,
         )
@@ -53,7 +53,7 @@ class TestWrapper:
     def test_failed_get_price(self):
         responses.add(
             responses.GET,
-            "http://localhost:8000/simple/price?ids=bitcoin&vs_currencies=usd",
+            "https://api.pestoai.fun/v2/simple/price?ids=bitcoin&vs_currencies=usd",
             status=404,
         )
         exception = HTTPError("HTTP Error")
@@ -73,7 +73,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/simple/token_price/ethereum?include_market_cap=true&include_24hr_vol=true&include_last_updated_at=true&contract_addresses=0xB8c77482e45F1F44dE1745F52C74426C631bDD52&vs_currencies=bnb",
+            "https://api.pestoai.fun/v2/simple/token_price/ethereum?include_market_cap=true&include_24hr_vol=true&include_last_updated_at=true&contract_addresses=0xB8c77482e45F1F44dE1745F52C74426C631bDD52&vs_currencies=bnb",
             json=coins_json_sample,
             status=200,
         )
@@ -94,7 +94,7 @@ class TestWrapper:
     def test_failed_get_token_price(self):
         responses.add(
             responses.GET,
-            "http://localhost:8000/simple/token_price/ethereum?include_market_cap=true&include_24hr_vol=true&include_last_updated_at=true&contract_addresses=0xB8c77482e45F1F44dE1745F52C74426C631bDD52&vs_currencies=bnb",
+            "https://api.pestoai.fun/v2/simple/token_price/ethereum?include_market_cap=true&include_24hr_vol=true&include_last_updated_at=true&contract_addresses=0xB8c77482e45F1F44dE1745F52C74426C631bDD52&vs_currencies=bnb",
             status=404,
         )
         exception = HTTPError("HTTP Error")
@@ -172,7 +172,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/simple/supported_vs_currencies",
+            "https://api.pestoai.fun/v2/simple/supported_vs_currencies",
             json=coins_json_sample,
             status=200,
         )
@@ -186,7 +186,7 @@ class TestWrapper:
     def test_failed_get_supported_vs_currencies(self):
         responses.add(
             responses.GET,
-            "http://localhost:8000/simple/supported_vs_currencies",
+            "https://api.pestoai.fun/v2/simple/supported_vs_currencies",
             status=404,
         )
         exception = HTTPError("HTTP Error")
@@ -257,7 +257,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/simple/supported_vs_currencies",
+            "https://api.pestoai.fun/v2/simple/supported_vs_currencies",
             json=coins_json_sample,
             status=200,
         )
@@ -271,7 +271,7 @@ class TestWrapper:
     def test_failed_get_supported_vs_currencies(self):
         responses.add(
             responses.GET,
-            "http://localhost:8000/simple/supported_vs_currencies",
+            "https://api.pestoai.fun/v2/simple/supported_vs_currencies",
             status=404,
         )
         exception = HTTPError("HTTP Error")
@@ -284,7 +284,7 @@ class TestWrapper:
     # ---------- /price/coins ----------#
     @responses.activate
     def test_failed_get_coins(self):
-        responses.add(responses.GET, "http://localhost:8000/coins", status=404)
+        responses.add(responses.GET, "https://api.pestoai.fun/v2/coins", status=404)
         exception = HTTPError("HTTP Error")
 
         with pytest.raises(HTTPError) as HE:
@@ -330,7 +330,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins",
+            "https://api.pestoai.fun/v2/coins",
             json=coins_json_sample,
             status=200,
         )
@@ -343,7 +343,9 @@ class TestWrapper:
     # ---------- /price/coins/list ----------#
     @responses.activate
     def test_failed_get_coins_list(self):
-        responses.add(responses.GET, "http://localhost:8000/coins/list", status=404)
+        responses.add(
+            responses.GET, "https://api.pestoai.fun/v2/coins/list", status=404
+        )
         exception = HTTPError("HTTP Error")
 
         with pytest.raises(HTTPError) as HE:
@@ -363,7 +365,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins/list",
+            "https://api.pestoai.fun/v2/coins/list",
             json=coins_json_sample,
             status=200,
         )
@@ -378,7 +380,7 @@ class TestWrapper:
     def test_failed_get_coins_markets(self):
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins/markets?vs_currency=usd",
+            "https://api.pestoai.fun/v2/coins/markets?vs_currency=usd",
             status=404,
         )
         exception = HTTPError("HTTP Error")
@@ -415,7 +417,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins/markets?vs_currency=usd",
+            "https://api.pestoai.fun/v2/coins/markets?vs_currency=usd",
             json=markets_json_sample,
             status=200,
         )
@@ -428,7 +430,9 @@ class TestWrapper:
     # ---------- /price/coins/{id} ----------#
     @responses.activate
     def test_failed_get_coin_by_id(self):
-        responses.add(responses.GET, "http://localhost:8000/coins/bitcoin/", status=404)
+        responses.add(
+            responses.GET, "https://api.pestoai.fun/v2/coins/bitcoin/", status=404
+        )
         exception = HTTPError("HTTP Error")
 
         with pytest.raises(HTTPError) as HE:
@@ -468,7 +472,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins/bitcoin/",
+            "https://api.pestoai.fun/v2/coins/bitcoin/",
             json=bitcoin_json_sample,
             status=200,
         )
@@ -482,7 +486,9 @@ class TestWrapper:
     @responses.activate
     def test_failed_get_coin_ticker_by_id(self):
         responses.add(
-            responses.GET, "http://localhost:8000/coins/bitcoin/tickers", status=404
+            responses.GET,
+            "https://api.pestoai.fun/v2/coins/bitcoin/tickers",
+            status=404,
         )
         exception = HTTPError("HTTP Error")
 
@@ -526,7 +532,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins/bitcoin/tickers",
+            "https://api.pestoai.fun/v2/coins/bitcoin/tickers",
             json=bitcoin_json_sample,
             status=200,
         )
@@ -541,7 +547,7 @@ class TestWrapper:
     def test_failed_get_coin_history_by_id(self):
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins/bitcoin/history?date=27-08-2018",
+            "https://api.pestoai.fun/v2/coins/bitcoin/history?date=27-08-2018",
             status=404,
         )
         exception = HTTPError("HTTP Error")
@@ -582,7 +588,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins/bitcoin/history?date=27-08-2018",
+            "https://api.pestoai.fun/v2/coins/bitcoin/history?date=27-08-2018",
             json=history_json_sample,
             status=200,
         )
@@ -597,7 +603,7 @@ class TestWrapper:
     def test_failed_get_coin_market_chart_by_id(self):
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins/bitcoin/market_chart?vs_currency=usd&days=1",
+            "https://api.pestoai.fun/v2/coins/bitcoin/market_chart?vs_currency=usd&days=1",
             status=404,
         )
         exception = HTTPError("HTTP Error")
@@ -620,7 +626,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins/bitcoin/market_chart?vs_currency=usd&days=1",
+            "https://api.pestoai.fun/v2/coins/bitcoin/market_chart?vs_currency=usd&days=1",
             json=json_response,
             status=200,
         )
@@ -635,7 +641,7 @@ class TestWrapper:
     def test_failed_get_coin_info_from_contract_address_by_id(self):
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins/ethereum/contract/0x0D8775F648430679A709E98d2b0Cb6250d2887EF",
+            "https://api.pestoai.fun/v2/coins/ethereum/contract/0x0D8775F648430679A709E98d2b0Cb6250d2887EF",
             status=404,
         )
         exception = HTTPError("HTTP Error")
@@ -681,7 +687,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/coins/ethereum/contract/0x0D8775F648430679A709E98d2b0Cb6250d2887EF",
+            "https://api.pestoai.fun/v2/coins/ethereum/contract/0x0D8775F648430679A709E98d2b0Cb6250d2887EF",
             json=json_response,
             status=200,
         )
@@ -698,7 +704,7 @@ class TestWrapper:
     # ---------- /exchanges ----------#
     @responses.activate
     def test_failed_get_exchanges_list(self):
-        responses.add(responses.GET, "http://localhost:8000/exchanges", status=404)
+        responses.add(responses.GET, "https://api.pestoai.fun/v2/exchanges", status=404)
         exception = HTTPError("HTTP Error")
 
         with pytest.raises(HTTPError) as HE:
@@ -729,7 +735,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/exchanges",
+            "https://api.pestoai.fun/v2/exchanges",
             json=json_response,
             status=200,
         )
@@ -742,7 +748,9 @@ class TestWrapper:
     # ---------- /exchanges/list ----------#
     @responses.activate
     def test_failed_get_exchanges_id_name_list(self):
-        responses.add(responses.GET, "http://localhost:8000/exchanges/list", status=404)
+        responses.add(
+            responses.GET, "https://api.pestoai.fun/v2/exchanges/list", status=404
+        )
         exception = HTTPError("HTTP Error")
 
         with pytest.raises(HTTPError) as HE:
@@ -758,7 +766,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/exchanges/list",
+            "https://api.pestoai.fun/v2/exchanges/list",
             json=json_response,
             status=200,
         )
@@ -772,7 +780,7 @@ class TestWrapper:
     @responses.activate
     def test_failed_get_exchanges_by_id(self):
         responses.add(
-            responses.GET, "http://localhost:8000/exchanges/bitforex", status=404
+            responses.GET, "https://api.pestoai.fun/v2/exchanges/bitforex", status=404
         )
         exception = HTTPError("HTTP Error")
 
@@ -814,7 +822,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/exchanges/bitforex",
+            "https://api.pestoai.fun/v2/exchanges/bitforex",
             json=json_response,
             status=200,
         )
@@ -829,7 +837,9 @@ class TestWrapper:
     # ---------- /exchange_rates ----------#
     @responses.activate
     def test_failed_get_exchange_rates(self):
-        responses.add(responses.GET, "http://localhost:8000/exchange_rates", status=404)
+        responses.add(
+            responses.GET, "https://api.pestoai.fun/v2/exchange_rates", status=404
+        )
         exception = HTTPError("HTTP Error")
 
         with pytest.raises(HTTPError) as HE:
@@ -857,7 +867,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/exchange_rates",
+            "https://api.pestoai.fun/v2/exchange_rates",
             json=json_response,
             status=200,
         )
@@ -873,7 +883,7 @@ class TestWrapper:
     @responses.activate
     def test_failed_search_get_trending(self):
         responses.add(
-            responses.GET, "http://localhost:8000/search/trending", status=404
+            responses.GET, "https://api.pestoai.fun/v2/search/trending", status=404
         )
         exception = HTTPError("HTTP Error")
 
@@ -960,7 +970,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/search/trending",
+            "https://api.pestoai.fun/v2/search/trending",
             json=json_response,
             status=200,
         )
@@ -975,7 +985,7 @@ class TestWrapper:
     # ---------- /global ----------#
     @responses.activate
     def test_failed_get_global(self):
-        responses.add(responses.GET, "http://localhost:8000/global", status=404)
+        responses.add(responses.GET, "https://api.pestoai.fun/v2/global", status=404)
         exception = HTTPError("HTTP Error")
 
         with pytest.raises(HTTPError) as HE:
@@ -995,7 +1005,7 @@ class TestWrapper:
 
         responses.add(
             responses.GET,
-            "http://localhost:8000/global",
+            "https://api.pestoai.fun/v2/global",
             json=json_response,
             status=200,
         )

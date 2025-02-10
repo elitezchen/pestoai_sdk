@@ -8,8 +8,8 @@ from .utils import func_args_preprocessing
 
 
 class PestoAPI:
-    __API_URL_BASE = "http://localhost:8000/"
-    __PRO_API_URL_BASE = "http://localhost:8000/"
+    __API_URL_BASE = "https://api.pestoai.fun/v2/"
+    __PRO_API_URL_BASE = "https://api.pestoai.fun/v2/"
 
     def __init__(self, api_key: str = "", retries=5, demo_api_key: str = ""):
 
