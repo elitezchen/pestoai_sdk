@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools", "wheel", "setuptools_scm>=6.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pypestoai"
+dynamic = ["version"]
+description = "Python wrapper around the Pesto API"
+readme = "README.md"
+requires-python = ">=3.6"
+authors = [
+    { name = "Chén Yǔxuān", email = "elitezchen@gmail.com" }
+]
+license = { text = "MIT" }
+dependencies = [
+    "requests",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/elitezchen/pestoai_sdk"
+
+[tool.setuptools]
+packages = ["pypestoai"]
+
+[tool.setuptools_scm]
+write_to = "pypestoai/_version.py"
+local_scheme = "no-local-version"
